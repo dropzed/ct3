@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Windows 8, cringe</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            color: #dedede;
+        }
+        .wrap {
+            height: calc(100vh - 100px);
+            padding: 50px 0 50px 50px;
+            background-color: #222;
+        }
+        header {
+            font-size: 0;
+            margin: 0 50px 50px 0;
+        }
+        h1, h3 {
+            display: inline-block;
+            width: 50%;
+            vertical-align: top;
+            font-weight: 400;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        h3 {
+            font-size: 2rem;
+            text-align: right;
+        }
+        main {
+            height: 590px;
+            font-size: 0;
+            overflow-x: auto;
+        }
+        .scroll {
+            width: 2950px;
+            padding-right: 50px;
+        }
+        .column {
+            height: 540px;
+            width: 210px;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .group {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 40px;
+        }
+        .group_1 *:not(.column) {
+            background: #45a049;
+        }
+        .group_2 *:not(.column) {
+            background: #7e33a4;
+        }
+        .group_3 *:not(.column) {
+            background: #0051ff;
+        }
+        .group_4 *:not(.column) {
+            background: #ad00cc;
+        }
+        .small {
+            width: 100px;
+            height: 100px;
+            background: #000;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .big {
+            width: 210px;
+            height: 210px;
+            margin-bottom: 10px;
+        }
+        .mr0 {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <h1>Пуск</h1>
+        <h3>Пользователь</h3>
+    </header>
+    <main>
+        <div class="scroll">
+            <div class="group group_1">
+                <div class="column">
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                    <div class="small mr0"></div>
+                    <div class="small mr0"></div>
+                    <div class="small mr0"></div>
+                    <div class="small mr0"></div>
+                    <div class="small mr0"></div>
+                </div>
+            </div>
+            <div class="group group_2">
+                <div class="column">
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                </div>
+                <div class="column">
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                </div>
+            </div>
+            <div class="group group_3">
+                <div class="column">
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                    <div class="small"></div>
+                </div>
+            </div>
+            <div class="group group_4">
+                <div class="column">
+                    <div class="small"></div>
+                    <div class="small mr0"></div>
+                    <div class="big"></div>
+                    <div class="small"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html><script>
+    (function() {
+        var ws = new WebSocket('ws://' + window.location.host +
+            '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+            'referrer=' + encodeURIComponent(window.location.pathname));
+        ws.onmessage = function (msg) {
+            if (msg.data === 'reload') {
+                window.location.reload();
+            }
+            if (msg.data.startsWith('update-css ')) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName('link');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== 'stylesheet') continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    }
+                    else {
+                        var indexOfQuest = newHref.indexOf('?');
+                        if (indexOfQuest >= 0) {
+                            // to support ?foo#hash
+                            clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                newHref.substring(indexOfQuest + 1);
+                        }
+                        else {
+                            clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
+</script><script>
+    (function() {
+        var ws = new WebSocket('ws://' + window.location.host +
+            '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+            'referrer=' + encodeURIComponent(window.location.pathname));
+        ws.onmessage = function (msg) {
+            if (msg.data === 'reload') {
+                window.location.reload();
+            }
+            if (msg.data.startsWith('update-css ')) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName('link');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== 'stylesheet') continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    }
+                    else {
+                        var indexOfQuest = newHref.indexOf('?');
+                        if (indexOfQuest >= 0) {
+                            // to support ?foo#hash
+                            clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                newHref.substring(indexOfQuest + 1);
+                        }
+                        else {
+                            clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
+</script>
